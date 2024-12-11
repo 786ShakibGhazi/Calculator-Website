@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rent Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style>
+  </head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Rent Calculator</h1>
+    <form id="rentForm">
+      <div>
+        <label for="monthlyRent">Monthly Rent:</label>
+        <input type="number" id="monthlyRent" required>
+      </div>
+      <div>
+        <label for="leaseDuration">Lease Duration (months):</label>
+        <input type="number" id="leaseDuration" required>
+      </div>
+      <div>
+        <label for="additionalFees">Additional Fees:</label>
+        <input type="number" id="additionalFees" required>
+      </div>
+      <div>
+        <label for="deposit">Security Deposit:</label>
+        <input type="number" id="deposit" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("rentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var monthlyRent = parseFloat(document.getElementById("monthlyRent").value);
+    var leaseDuration = parseInt(document.getElementById("leaseDuration").value);
+    var additionalFees = parseFloat(document.getElementById("additionalFees").value);
+    var deposit = parseFloat(document.getElementById("deposit").value);
+  
+    var totalRent = monthlyRent * leaseDuration + additionalFees + deposit;
+  
+    document.getElementById("result").innerHTML = `Total Rent Amount: $${totalRent.toFixed(2)}`;
+  });
+  </script>
+</body>
+</html>

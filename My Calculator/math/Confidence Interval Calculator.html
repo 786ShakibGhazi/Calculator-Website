@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confidence Interval Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="calculator">
+    <h1>Confidence Interval Calculator</h1>
+    <label for="sampleMean">Sample Mean:</label>
+    <input type="number" id="sampleMean" required>
+
+    <label for="sampleSize">Sample Size:</label>
+    <input type="number" id="sampleSize" required>
+
+    <label for="confidenceLevel">Confidence Level (%):</label>
+    <input type="number" id="confidenceLevel" min="1" max="99" required>
+
+    <button onclick="calculateConfidenceInterval()">Calculate Confidence Interval</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateConfidenceInterval() {
+      const sampleMean = parseFloat(document.getElementById("sampleMean").value);
+      const sampleSize = parseFloat(document.getElementById("sampleSize").value);
+      const confidenceLevel = parseFloat(document.getElementById("confidenceLevel").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(sampleMean) || isNaN(sampleSize) || isNaN(confidenceLevel) || sampleSize <= 0 || confidenceLevel <= 0 || confidenceLevel >= 100) {
+        result.textContent = "Please enter valid numbers for Sample Mean, Sample Size, and Confidence Level (between 1 and 99).";
+        return;
+      }
+
+      const zScore = getZScore(confidenceLevel);
+      const standardError = calculateStandardError(sampleSize);
+
+      const lowerBound = sampleMean - zScore * standardError;
+      const upperBound = sampleMean + zScore * standardError;
+
+      result.innerHTML = `Confidence Interval: (${lowerBound.toFixed(2)}, ${upperBound.toFixed(2)})`;
+    }
+
+    function getZScore(confidenceLevel) {
+      // Z-score table lookup based on confidence level
+      const zTable = {
+        90: 1.645,
+        91: 1.695,
+        92: 1.751,
+        93: 1.812,
+        94: 1.881,
+        95: 1.960,
+        96: 2.054,
+        97: 2.170,
+        98: 2.326,
+        99: 2.576
+      };
+
+      return zTable[confidenceLevel] || 1.960; // Default to 95% confidence
+    }
+
+    function calculateStandardError(sampleSize) {
+      // Assume population standard deviation is unknown, so use sample standard deviation as an estimate
+      // In a real-world scenario, if population standard deviation is known, use population stdDev instead
+      const sampleStdDev = 1; // Replace with the sample standard deviation if available
+      return sampleStdDev / Math.sqrt(sampleSize);
+    }
+  </script>
+</body>
+</html>

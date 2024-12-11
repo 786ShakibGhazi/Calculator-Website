@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binary Calculator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: blue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+  </style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="container">
+    <h1>Binary Calculator</h1>
+    <label for="number1">Number 1 (Binary):</label>
+    <input type="text" id="number1">
+    <label for="number2">Number 2 (Binary):</label>
+    <input type="text" id="number2">
+    <label for="operator">Operator:</label>
+    <select id="operator">
+      <option value="add">+</option>
+      <option value="subtract">-</option>
+      <option value="multiply">*</option>
+      <option value="divide">/</option>
+    </select>
+    <button onclick="calculateBinary()">Calculate</button>
+    <div id="result"></div>
+  </div>
+  <script >
+    function calculateBinary() {
+  const number1 = document.getElementById("number1").value;
+  const number2 = document.getElementById("number2").value;
+  const operator = document.getElementById("operator").value;
+
+  if (!isValidBinary(number1) || !isValidBinary(number2)) {
+    document.getElementById("result").innerText = "Please enter valid binary numbers.";
+    return;
+  }
+
+  let result;
+  if (operator === "add") {
+    result = binaryAddition(number1, number2);
+  } else if (operator === "subtract") {
+    result = binarySubtraction(number1, number2);
+  } else if (operator === "multiply") {
+    result = binaryMultiplication(number1, number2);
+  } else if (operator === "divide") {
+    result = binaryDivision(number1, number2);
+  }
+
+  document.getElementById("result").innerText = `Result: ${result}`;
+}
+
+function isValidBinary(binary) {
+  return /^[01]+$/.test(binary);
+}
+
+function binaryAddition(num1, num2) {
+  const decimal1 = parseInt(num1, 2);
+  const decimal2 = parseInt(num2, 2);
+  const sum = decimal1 + decimal2;
+  return sum.toString(2);
+}
+
+function binarySubtraction(num1, num2) {
+  const decimal1 = parseInt(num1, 2);
+  const decimal2 = parseInt(num2, 2);
+  const difference = decimal1 - decimal2;
+  return difference.toString(2);
+}
+
+function binaryMultiplication(num1, num2) {
+  const decimal1 = parseInt(num1, 2);
+  const decimal2 = parseInt(num2, 2);
+  const product = decimal1 * decimal2;
+  return product.toString(2);
+}
+
+function binaryDivision(num1, num2) {
+  const decimal1 = parseInt(num1, 2);
+  const decimal2 = parseInt(num2, 2);
+  if (decimal2 === 0) {
+    return "Infinity";
+  }
+  const quotient = Math.floor(decimal1 / decimal2);
+  return quotient.toString(2);
+}
+
+  </script>
+</body>
+</html>

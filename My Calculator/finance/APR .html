@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>APR Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>APR Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="loanAmount">Loan Amount ($):</label>
+        <input type="number" id="loanAmount" required>
+      </div>
+      <div>
+        <label for="interestRate">Interest Rate (%):</label>
+        <input type="number" id="interestRate" required>
+      </div>
+      <div>
+        <label for="loanTerm">Loan Term (Months):</label>
+        <input type="number" id="loanTerm" required>
+      </div>
+      <div>
+        <label for="originationFee">Origination Fee ($):</label>
+        <input type="number" id="originationFee" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var loanAmount = parseFloat(document.getElementById("loanAmount").value);
+    var interestRate = parseFloat(document.getElementById("interestRate").value);
+    var loanTerm = parseInt(document.getElementById("loanTerm").value);
+    var originationFee = parseFloat(document.getElementById("originationFee").value);
+  
+    var monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTerm);
+    var apr = calculateAPR(loanAmount, monthlyPayment, loanTerm, originationFee);
+    
+    document.getElementById("result").innerHTML = `Monthly Payment: $${monthlyPayment.toFixed(2)}<br>
+      APR: ${apr.toFixed(2)}%`;
+  });
+  
+  function calculateMonthlyPayment(loanAmount, interestRate, loanTerm) {
+    var monthlyInterestRate = interestRate / 100 / 12;
+    var totalMonths = loanTerm;
+    var monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
+    return monthlyPayment;
+  }
+  
+  function calculateAPR(loanAmount, monthlyPayment, loanTerm, originationFee) {
+    var totalPayment = monthlyPayment * loanTerm;
+    var totalInterest = totalPayment - loanAmount + originationFee;
+    var apr = (totalInterest / loanAmount) * 100;
+    return apr;
+  }
+  </script>
+</body>
+</html>

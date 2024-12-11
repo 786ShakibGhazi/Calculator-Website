@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Loan Calculator</title>
+	<style>
+		.calculator {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		label {
+			display: inline-block;
+			width: 150px;
+			margin-bottom: 10px;
+			text-align: right;
+		}
+
+		input[type="number"] {
+			width: 200px;
+			padding: 5px;
+			margin-bottom: 10px;
+		}
+
+		button {
+			padding: 10px;
+			background-color: blue;
+			color: white;
+			border: none;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+
+		button:hover {
+			background-color: #3e8e41;
+		}
+
+		#results {
+			margin-top: 20px;
+		}
+
+		.text {
+			color: black;
+			font-family: "Pacifico", cursive;
+			font-size: 50px;
+			padding: 8px 12px;
+			
+			width: 100%;
+			text-align: center;
+		}
+		.text1 {
+			color: black;
+			font-family: "Pacifico", cursive;
+			font-size: 20px;
+			
+			
+
+			
+		}
+	</style>
+</head>
+
+<body background="images/business-618371.jpg">
+	<div class="calculator">
+		<h1 class="text">Loan Calculator</h1>
+		<form>
+			<div>
+				<label class="text1">Loan Amount:</label>
+				<input type="number" id="loanAmount" placeholder="Enter Loan Amount" />
+			</div>
+			<div>
+				<label class="text1">Interest Rate:</label>
+				<input type="number" id="interestRate" placeholder="Enter Interest Rate" />
+			</div>
+			<div>
+				<label class="text1">Loan Term:</label>
+				<input type="number" id="loanTerm" placeholder="Enter Loan Term" />
+			</div>
+			<button type="button" onclick="calculateLoan()">Calculate</button>
+		</form>
+		<div class="text1"; id="results"></div>
+	</div>
+	<script>
+		function calculateLoan() {
+			const loanAmount = document.getElementById("loanAmount").value;
+			const interestRate = document.getElementById("interestRate").value;
+			const loanTerm = document.getElementById("loanTerm").value;
+
+			const monthlyInterestRate = interestRate / 1200;
+			const totalPayments = loanTerm * 12;
+			const monthlyPayment =
+				(loanAmount * monthlyInterestRate) /
+				(1 - Math.pow(1 + monthlyInterestRate, -totalPayments));
+			const totalCost = monthlyPayment * totalPayments;
+
+			const results = document.getElementById("results");
+			results.innerHTML = `
+          <h2>Loan Summary</h2>
+          <p>Loan Amount: $${loanAmount}</p>
+          <p>Interest Rate: ${interestRate}%</p>
+          <p>Loan Term: ${loanTerm} years</p>
+          <h3>Monthly Payment</h3>
+          <p>$${monthlyPayment.toFixed(2)}</p>
+          <h3>Total Cost</h3>
+          <p>$${totalCost.toFixed(2)}</p>
+        `;
+		}
+	</script>
+</body>
+
+</html>

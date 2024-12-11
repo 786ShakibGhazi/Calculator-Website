@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Retirement Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/calculator-2391810_1280.jpg">
+  <div class="container">
+    <h1>Retirement Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="currentAge">Current Age:</label>
+        <input type="number" id="currentAge" required>
+      </div>
+      <div>
+        <label for="retirementAge">Retirement Age:</label>
+        <input type="number" id="retirementAge" required>
+      </div>
+      <div>
+        <label for="monthlyContribution">Monthly Contribution ($):</label>
+        <input type="number" id="monthlyContribution" required>
+      </div>
+      <div>
+        <label for="annualReturn">Annual Return (%):</label>
+        <input type="number" id="annualReturn" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var currentAge = parseInt(document.getElementById("currentAge").value);
+    var retirementAge = parseInt(document.getElementById("retirementAge").value);
+    var monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
+    var annualReturn = parseFloat(document.getElementById("annualReturn").value) / 100;
+  
+    var yearsToRetirement = retirementAge - currentAge;
+    var totalContribution = monthlyContribution * 12 * yearsToRetirement;
+    var futureValue = calculateFutureValue(monthlyContribution, annualReturn, yearsToRetirement);
+  
+    var result = "Total Contribution: $" + totalContribution.toFixed(2) + "<br>";
+    result += "Future Value: $" + futureValue.toFixed(2);
+    document.getElementById("result").innerHTML = result;
+  });
+  
+  function calculateFutureValue(monthlyContribution, annualReturn, yearsToRetirement) {
+    var monthlyReturn = Math.pow(1 + annualReturn, 1 / 12) - 1;
+    var totalMonths = yearsToRetirement * 12;
+  
+    var futureValue = 0;
+    for (var i = 0; i < totalMonths; i++) {
+      futureValue = (futureValue + monthlyContribution) * (1 + monthlyReturn);
+    }
+  
+    return futureValue;
+  }
+  </script>
+</body>
+</html>

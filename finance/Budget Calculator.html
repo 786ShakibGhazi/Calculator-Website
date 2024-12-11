@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Budget Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color:blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Budget Calculator</h1>
+    <form id="budgetForm">
+      <div>
+        <label for="income">Monthly Income ($):</label>
+        <input type="number" id="income" required>
+      </div>
+      <div>
+        <label for="housing">Housing Expenses ($):</label>
+        <input type="number" id="housing" required>
+      </div>
+      <div>
+        <label for="utilities">Utilities Expenses ($):</label>
+        <input type="number" id="utilities" required>
+      </div>
+      <div>
+        <label for="transportation">Transportation Expenses ($):</label>
+        <input type="number" id="transportation" required>
+      </div>
+      <div>
+        <label for="food">Food Expenses ($):</label>
+        <input type="number" id="food" required>
+      </div>
+      <div>
+        <label for="other">Other Expenses ($):</label>
+        <input type="number" id="other" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script >document.getElementById("budgetForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var income = parseFloat(document.getElementById("income").value);
+    var housing = parseFloat(document.getElementById("housing").value);
+    var utilities = parseFloat(document.getElementById("utilities").value);
+    var transportation = parseFloat(document.getElementById("transportation").value);
+    var food = parseFloat(document.getElementById("food").value);
+    var other = parseFloat(document.getElementById("other").value);
+  
+    var totalExpenses = housing + utilities + transportation + food + other;
+    var remainingBudget = income - totalExpenses;
+  
+    var result = "Total Expenses: $" + totalExpenses.toFixed(2) + "<br>";
+    result += "Remaining Budget: $" + remainingBudget.toFixed(2);
+  
+    document.getElementById("result").innerHTML = result;
+  });
+  </script>
+</body>
+</html>

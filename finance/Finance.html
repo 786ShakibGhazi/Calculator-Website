@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Finance Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style>
+  </head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Finance Calculator</h1>
+    <form id="financeForm">
+      <div>
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" required>
+      </div>
+      <div>
+        <label for="interestRate">Interest Rate (%):</label>
+        <input type="number" id="interestRate" step="0.01" required>
+      </div>
+      <div>
+        <label for="loanTerm">Loan Term (years):</label>
+        <input type="number" id="loanTerm" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("financeForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var loanAmount = parseFloat(document.getElementById("loanAmount").value);
+    var interestRate = parseFloat(document.getElementById("interestRate").value);
+    var loanTerm = parseFloat(document.getElementById("loanTerm").value);
+  
+    var monthlyInterestRate = interestRate / 100 / 12;
+    var numberOfPayments = loanTerm * 12;
+  
+    var monthlyPayment = (loanAmount * monthlyInterestRate) /
+      (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
+  
+    var totalPayment = monthlyPayment * numberOfPayments;
+    var totalInterest = totalPayment - loanAmount;
+  
+    document.getElementById("result").innerHTML = `
+      Monthly Payment: $${monthlyPayment.toFixed(2)}<br>
+      Total Payment: $${totalPayment.toFixed(2)}<br>
+      Total Interest: $${totalInterest.toFixed(2)}
+    `;
+  });
+  </script>
+</body>
+</html>

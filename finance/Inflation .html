@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inflation Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Inflation Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="initialAmount">Initial Amount ($):</label>
+        <input type="number" id="initialAmount" required>
+      </div>
+      <div>
+        <label for="years">Years:</label>
+        <input type="number" id="years" required>
+      </div>
+      <div>
+        <label for="inflationRate">Inflation Rate (%):</label>
+        <input type="number" id="inflationRate" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script >document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var initialAmount = parseFloat(document.getElementById("initialAmount").value);
+    var years = parseInt(document.getElementById("years").value);
+    var inflationRate = parseFloat(document.getElementById("inflationRate").value) / 100;
+  
+    var futureValue = calculateFutureValue(initialAmount, inflationRate, years);
+  
+    var result = "Future Value after " + years + " years: $" + futureValue.toFixed(2);
+    document.getElementById("result").innerHTML = result;
+  });
+  
+  function calculateFutureValue(initialAmount, inflationRate, years) {
+    var futureValue = initialAmount * Math.pow(1 + inflationRate, years);
+    return futureValue;
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canadian Mortgage Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style>
+</head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Canadian Mortgage Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="mortgageAmount">Mortgage Amount ($):</label>
+        <input type="number" id="mortgageAmount" required>
+      </div>
+      <div>
+        <label for="interestRate">Interest Rate (%):</label>
+        <input type="number" id="interestRate" required>
+      </div>
+      <div>
+        <label for="amortizationPeriod">Amortization Period (years):</label>
+        <input type="number" id="amortizationPeriod" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var mortgageAmount = parseFloat(document.getElementById("mortgageAmount").value);
+    var interestRate = parseFloat(document.getElementById("interestRate").value);
+    var amortizationPeriod = parseFloat(document.getElementById("amortizationPeriod").value);
+  
+    var monthlyPayment = calculateMonthlyPayment(mortgageAmount, interestRate, amortizationPeriod);
+  
+    document.getElementById("result").innerHTML = "Monthly Payment: $" + monthlyPayment.toFixed(2);
+  });
+  
+  function calculateMonthlyPayment(mortgageAmount, interestRate, amortizationPeriod) {
+    var monthlyInterestRate = (interestRate / 100) / 12;
+    var months = amortizationPeriod * 12;
+  
+    var monthlyPayment = (mortgageAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+    return monthlyPayment;
+  }
+  </script>
+</body>
+</html>

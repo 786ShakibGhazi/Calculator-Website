@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Standard Deviation Calculator</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+    }
+    
+    .calculator {
+        display: inline-block;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    
+    h2 {
+        margin-bottom: 10px;
+    }
+    
+    label, input, button {
+        display: block;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 3px;
+    }
+    
+    button {
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+    <div class="calculator">
+        <h2>Standard Deviation Calculator</h2>
+        <label for="numbers">Enter numbers (comma-separated):</label>
+        <input type="text" id="numbers" placeholder="Enter numbers">
+        <button onclick="calculate()">Calculate</button>
+        <label for="result">Standard Deviation:</label>
+        <input type="text" id="result" placeholder="Standard Deviation" readonly>
+    </div>
+
+    <script>function calculate() {
+        const numbersInput = document.getElementById("numbers");
+        const resultInput = document.getElementById("result");
+    
+        const numbersArray = numbersInput.value.split(",").map((num) => parseFloat(num.trim()));
+    
+        if (numbersArray.some((num) => isNaN(num))) {
+            resultInput.value = "Please enter valid numbers";
+            return;
+        }
+    
+        if (numbersArray.length <= 1) {
+            resultInput.value = "Please enter at least two numbers";
+            return;
+        }
+    
+        const mean = numbersArray.reduce((sum, num) => sum + num, 0) / numbersArray.length;
+    
+        const squaredDifferences = numbersArray.map((num) => (num - mean) ** 2);
+    
+        const variance = squaredDifferences.reduce((sum, squaredDiff) => sum + squaredDiff, 0) / numbersArray.length;
+    
+        const standardDeviation = Math.sqrt(variance);
+    
+        resultInput.value = standardDeviation.toFixed(2); // Display standard deviation with two decimal places
+    }
+    </script>
+</body>
+</html>

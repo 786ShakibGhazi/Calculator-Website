@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    select{
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="calculator">
+    <h1>Area Calculator</h1>
+    <label for="shape">Select Shape:</label>
+    <select id="shape" onchange="changeShape()">
+      <option value="circle">Circle</option>
+      <option value="rectangle">Rectangle</option>
+      <option value="triangle">Triangle</option>
+    </select>
+
+    <div id="circleInputs">
+      <label for="circleRadius">Circle Radius:</label>
+      <input type="number" id="circleRadius">
+    </div>
+
+    <div id="rectangleInputs" style="display: none;">
+      <label for="rectangleWidth">Rectangle Width:</label>
+      <input type="number" id="rectangleWidth">
+      <label for="rectangleHeight">Rectangle Height:</label>
+      <input type="number" id="rectangleHeight">
+    </div>
+
+    <div id="triangleInputs" style="display: none;">
+      <label for="triangleBase">Triangle Base:</label>
+      <input type="number" id="triangleBase">
+      <label for="triangleHeight">Triangle Height:</label>
+      <input type="number" id="triangleHeight">
+    </div>
+
+    <button onclick="calculateArea()">Calculate Area</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function changeShape() {
+      const selectedShape = document.getElementById("shape").value;
+      const circleInputs = document.getElementById("circleInputs");
+      const rectangleInputs = document.getElementById("rectangleInputs");
+      const triangleInputs = document.getElementById("triangleInputs");
+
+      if (selectedShape === "circle") {
+        circleInputs.style.display = "block";
+        rectangleInputs.style.display = "none";
+        triangleInputs.style.display = "none";
+      } else if (selectedShape === "rectangle") {
+        circleInputs.style.display = "none";
+        rectangleInputs.style.display = "block";
+        triangleInputs.style.display = "none";
+      } else if (selectedShape === "triangle") {
+        circleInputs.style.display = "none";
+        rectangleInputs.style.display = "none";
+        triangleInputs.style.display = "block";
+      }
+    }
+
+    function calculateArea() {
+      const selectedShape = document.getElementById("shape").value;
+      const resultElement = document.getElementById("result");
+
+      if (selectedShape === "circle") {
+        const radius = parseFloat(document.getElementById("circleRadius").value);
+        const area = Math.PI * Math.pow(radius, 2);
+        resultElement.textContent = `Area of Circle: ${area.toFixed(2)}`;
+      } else if (selectedShape === "rectangle") {
+        const width = parseFloat(document.getElementById("rectangleWidth").value);
+        const height = parseFloat(document.getElementById("rectangleHeight").value);
+        const area = width * height;
+        resultElement.textContent = `Area of Rectangle: ${area.toFixed(2)}`;
+      } else if (selectedShape === "triangle") {
+        const base = parseFloat(document.getElementById("triangleBase").value);
+        const height = parseFloat(document.getElementById("triangleHeight").value);
+        const area = 0.5 * base * height;
+        resultElement.textContent = `Area of Triangle: ${area.toFixed(2)}`;
+      }
+    }
+  </script>
+</body>
+</html>

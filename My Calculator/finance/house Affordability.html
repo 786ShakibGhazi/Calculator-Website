@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>House Affordability Calculator</title>
+  <Style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </Style>
+</head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>House Affordability Calculator</h1>
+    <form id="affordabilityForm">
+      <div>
+        <label for="income">Annual Income:</label>
+        <input type="number" id="income" required>
+      </div>
+      <div>
+        <label for="debtRatio">Debt-to-Income Ratio (%):</label>
+        <input type="number" id="debtRatio" step="0.01" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script >document.getElementById("affordabilityForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var income = parseFloat(document.getElementById("income").value);
+    var debtRatio = parseFloat(document.getElementById("debtRatio").value);
+  
+    var maxAffordablePrice = (income * (debtRatio / 100)) / 12;
+  
+    document.getElementById("result").innerHTML = `Maximum Affordable House Price: $${maxAffordablePrice.toFixed(2)}`;
+  });
+  </script>
+</body>
+</html>

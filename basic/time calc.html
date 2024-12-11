@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body background="images/calculator-2391810_1280.jpg">
+    <h1>Time Calculator</h1>
+    <label for="hours">Hours:</label>
+    <input type="number" id="hours">
+    <label for="minutes">Minutes:</label>
+    <input type="number" id="minutes">
+    <label for="seconds">Seconds:</label>
+    <input type="number" id="seconds">
+
+    <label for="time">Base Time:</label>
+    <input type="time" id="time">
+
+    <button onclick="calculateTime()">Calculate</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateTime() {
+            const hoursToAdd = parseInt(document.getElementById("hours").value);
+            const minutesToAdd = parseInt(document.getElementById("minutes").value);
+            const secondsToAdd = parseInt(document.getElementById("seconds").value);
+
+            const baseTime = document.getElementById("time").value.split(":");
+            let baseHours = parseInt(baseTime[0]);
+            let baseMinutes = parseInt(baseTime[1]);
+            let baseSeconds = 0;
+
+            // Calculate total seconds
+            let totalSeconds = baseHours * 3600 + baseMinutes * 60 + baseSeconds;
+            totalSeconds += hoursToAdd * 3600 + minutesToAdd * 60 + secondsToAdd;
+
+            // Calculate the new time
+            const newHours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+            const newMinutes = Math.floor(totalSeconds / 60);
+            const newSeconds = totalSeconds % 60;
+
+            // Display the result
+            document.getElementById("result").innerText = `New Time: ${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}:${newSeconds.toString().padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>

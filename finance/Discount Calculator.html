@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Discount Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Discount Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="originalPrice">Original Price ($):</label>
+        <input type="number" id="originalPrice" required>
+      </div>
+      <div>
+        <label for="discountPercentage">Discount Percentage (%):</label>
+        <input type="number" id="discountPercentage" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script >document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var originalPrice = parseFloat(document.getElementById("originalPrice").value);
+    var discountPercentage = parseFloat(document.getElementById("discountPercentage").value);
+  
+    var discountAmount = originalPrice * (discountPercentage / 100);
+    var discountedPrice = originalPrice - discountAmount;
+  
+    var result = "Discount Amount: $" + discountAmount.toFixed(2) + "<br>";
+    result += "Discounted Price: $" + discountedPrice.toFixed(2);
+  
+    document.getElementById("result").innerHTML = result;
+  });
+  </script>
+</body>
+</html>

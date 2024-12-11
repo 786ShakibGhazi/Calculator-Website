@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debt Consolidation Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Debt Consolidation Calculator</h1>
+    <form id="debtConsolidationForm">
+      <div>
+        <label for="currentDebt">Current Total Debt ($):</label>
+        <input type="number" id="currentDebt" placeholder="Enter current total debt" required>
+      </div>
+      <div>
+        <label for="interestRate">Average Interest Rate (%):</label>
+        <input type="number" id="interestRate" placeholder="Enter average interest rate" required>
+      </div>
+      <div>
+        <label for="monthlyPayment">Monthly Payment ($):</label>
+        <input type="number" id="monthlyPayment" placeholder="Enter monthly payment" required>
+      </div>
+      <div>
+        <label for="consolidationInterestRate">Consolidation Loan Interest Rate (%):</label>
+        <input type="number" id="consolidationInterestRate" placeholder="Enter consolidation loan interest rate" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("debtConsolidationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var currentDebt = parseFloat(document.getElementById("currentDebt").value);
+    var interestRate = parseFloat(document.getElementById("interestRate").value);
+    var monthlyPayment = parseFloat(document.getElementById("monthlyPayment").value);
+    var consolidationInterestRate = parseFloat(document.getElementById("consolidationInterestRate").value);
+  
+    var monthsRemaining = Math.ceil((Math.log(1 - (currentDebt * (interestRate / 100) / 12) / monthlyPayment) / Math.log(1 + (consolidationInterestRate / 100) / 12)));
+    var newMonthlyPayment = currentDebt * (interestRate / 100) / 12 / (1 - Math.pow(1 + (consolidationInterestRate / 100) / 12, -monthsRemaining));
+  
+    document.getElementById("result").innerHTML = `Months to Payoff: ${monthsRemaining} months<br>
+      New Monthly Payment: $${newMonthlyPayment.toFixed(2)}`;
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body background="images/calculator-2391810_1280.jpg">
+    <h1>Date Calculator</h1>
+    <label for="startDate">Start date:</label>
+    <input type="date" id="startDate">
+    <label for="endDate">End date:</label>
+    <input type="date" id="endDate">
+    <button onclick="calculateDateDifference()">Calculate Difference</button>
+    <p id="result"></p>
+    <p id="res"></p>
+
+    <script>
+        function calculateDateDifference() {
+            const startDate = new Date(document.getElementById("startDate").value);
+            const endDate = new Date(document.getElementById("endDate").value);
+            const dateDifference = endDate - startDate;
+            const daysDifference = dateDifference / (1000 * 60 * 60 * 24);
+            const year = daysDifference/365;
+            document.getElementById("result").innerText = `Difference: ${daysDifference} days.`;
+            document.getElementById("res").innerText = `Difference of years: ${year} years`;
+        }
+    </script>
+</body>
+</html>

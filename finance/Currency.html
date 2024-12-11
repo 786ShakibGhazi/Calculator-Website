@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Currency Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  select, input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style>
+</head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Currency Calculator</h1>
+    <form id="currencyForm">
+      <div>
+        <label for="fromCurrency">From Currency:</label>
+        <select id="fromCurrency" required>
+          <option value="USD">USD - United States Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound Sterling</option>
+        </select>
+      </div>
+      <div>
+        <label for="toCurrency">To Currency:</label>
+        <select id="toCurrency" required>
+          <option value="USD">USD - United States Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound Sterling</option>
+        </select>
+      </div>
+      <div>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" required>
+      </div>
+      <button type="submit">Convert</button>
+    </form>
+    <div id="result"></div>
+  </div>
+<script>document.getElementById("currencyForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  var fromCurrency = document.getElementById("fromCurrency").value;
+  var toCurrency = document.getElementById("toCurrency").value;
+  var amount = parseFloat(document.getElementById("amount").value);
+
+  var exchangeRates = {
+    USD: {
+      EUR: 0.85,
+      GBP: 0.72
+    },
+    EUR: {
+      USD: 1.18,
+      GBP: 0.85
+    },
+    GBP: {
+      USD: 1.38,
+      EUR: 1.18
+    }
+  };
+
+  var result = amount * exchangeRates[fromCurrency][toCurrency];
+
+  document.getElementById("result").innerHTML = result.toFixed(2) + " " + toCurrency;
+});
+</script>
+</body>
+</html>

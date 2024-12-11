@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Auto Loan Calculator</title>
+	<style>.calculator {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    label {
+        display: inline-block;
+        width: 150px;
+        margin-bottom: 10px;
+        text-align: right;
+    }
+    
+    input[type="number"] {
+        width: 200px;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+    
+    select {
+        width: 200px;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        padding: 10px;
+        background-color: blue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    
+    button:hover {
+        background-color:blue;
+    }
+    
+    #results {
+        margin-top: 20px;
+    }
+    </style>xx
+</head>
+<body background="images/business-618371.jpg">
+	<div class="calculator">
+		<h1>Auto Loan Calculator</h1>
+		<form>
+			<div>
+				<label>Vehicle Price:</label>
+				<input type="number" id="vehiclePrice" placeholder="Enter Vehicle Price">
+			</div>
+			<div>
+				<label>Down Payment:</label>
+				<input type="number" id="downPayment" placeholder="Enter Down Payment">
+			</div>
+			<div>
+				<label>Loan Term:</label>
+				<select id="loanTerm">
+					<option value="12">1 year</option>
+					<option value="24">2 years</option>
+					<option value="36">3 years</option>
+					<option value="48">4 years</option>
+					<option value="60">5 years</option>
+				</select>
+			</div>
+			<div>
+				<label>Interest Rate:</label>
+				<input type="number" id="interestRate" placeholder="Enter Interest Rate">
+			</div>
+			<button type="button" onclick="calculateLoan()">Calculate</button>
+		</form>
+		<div id="results"></div>
+	</div>
+	<script>
+    function calculateLoan() {
+  const vehiclePrice = document.getElementById("vehiclePrice").value;
+  const downPayment = document.getElementById("downPayment").value;
+  const loanTerm = document.getElementById("loanTerm").value;
+  const interestRate = document.getElementById("interestRate").value;
+
+  const loanAmount = vehiclePrice - downPayment;
+  const monthlyInterestRate = interestRate / 1200;
+  const totalPayments = loanTerm;
+  const monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalPayments));
+  const totalCost = monthlyPayment * totalPayments;
+
+  const results = document.getElementById("results");
+  results.innerHTML = `
+    <h2>Loan Summary</h2>
+    <p>Vehicle Price: $${vehiclePrice}</p>
+    <p>Down Payment: $${downPayment}</p>
+    <p>Loan Amount: $${loanAmount}</p>
+    <p>Loan Term: ${loanTerm} months</p>
+    <p>Interest Rate: ${interestRate}%</p>
+    <p>MonthlyPayment: ${monthlyPayment}</p>
+    <p>Total Payment: ${totalCost}</p>`;}
+    </script>
+</body>
+</html>

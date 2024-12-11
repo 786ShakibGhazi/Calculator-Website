@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Sequence Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+    .sequence-label {
+      font-weight: bold;
+    }
+    .sequence {
+      margin-top: 5px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="calculator">
+    <h1>Number Sequence Calculator</h1>
+    <label for="start">Start Value:</label>
+    <input type="number" id="start" required>
+
+    <label for="difference">Common Difference (for arithmetic sequence):</label>
+    <input type="number" id="difference">
+
+    <label for="ratio">Common Ratio (for geometric sequence):</label>
+    <input type="number" id="ratio">
+
+    <label for="length">Sequence Length:</label>
+    <input type="number" id="length" required>
+
+    <button onclick="generateArithmeticSequence()">Generate Arithmetic Sequence</button>
+    <button onclick="generateGeometricSequence()">Generate Geometric Sequence</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function generateArithmeticSequence() {
+      const startValue = parseFloat(document.getElementById("start").value);
+      const commonDifference = parseFloat(document.getElementById("difference").value);
+      const length = parseInt(document.getElementById("length").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(startValue) || isNaN(commonDifference) || isNaN(length)) {
+        result.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      let sequence = [startValue];
+      for (let i = 1; i < length; i++) {
+        sequence.push(sequence[i - 1] + commonDifference);
+      }
+
+      result.textContent = `Arithmetic Sequence: [${sequence.join(", ")}]`;
+    }
+
+    function generateGeometricSequence() {
+      const startValue = parseFloat(document.getElementById("start").value);
+      const commonRatio = parseFloat(document.getElementById("ratio").value);
+      const length = parseInt(document.getElementById("length").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(startValue) || isNaN(commonRatio) || isNaN(length)) {
+        result.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      let sequence = [startValue];
+      for (let i = 1; i < length; i++) {
+        sequence.push(sequence[i - 1] * commonRatio);
+      }
+
+      result.textContent = `Geometric Sequence: [${sequence.join(", ")}]`;
+    }
+  </script>
+</body>
+</html>

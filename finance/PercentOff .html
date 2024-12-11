@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Percent Off Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color:blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Percent Off Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="originalPrice">Original Price ($):</label>
+        <input type="number" id="originalPrice" required>
+      </div>
+      <div>
+        <label for="percentOff">Percent Off (%):</label>
+        <input type="number" id="percentOff" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var originalPrice = parseFloat(document.getElementById("originalPrice").value);
+    var percentOff = parseFloat(document.getElementById("percentOff").value);
+  
+    var finalPrice = calculateFinalPrice(originalPrice, percentOff);
+  
+    document.getElementById("result").innerHTML = "Final Price: $" + finalPrice.toFixed(2);
+  });
+  
+  function calculateFinalPrice(originalPrice, percentOff) {
+    var discountAmount = originalPrice * (percentOff / 100);
+    var finalPrice = originalPrice - discountAmount;
+    return finalPrice;
+  }
+  </script>
+</body>
+</html>

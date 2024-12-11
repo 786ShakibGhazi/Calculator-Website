@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="calculator">
+    <h1>Matrix Calculator</h1>
+    <label for="matrixA">Matrix A:</label>
+    <input type="number" id="a11" required>
+    <input type="number" id="a12" required>
+    <input type="number" id="a21" required>
+    <input type="number" id="a22" required>
+
+    <label for="matrixB">Matrix B:</label>
+    <input type="number" id="b11" required>
+    <input type="number" id="b12" required>
+    <input type="number" id="b21" required>
+    <input type="number" id="b22" required>
+
+    <button onclick="addMatrices()">Add</button>
+    <button onclick="subtractMatrices()">Subtract</button>
+    <button onclick="multiplyMatrices()">Multiply</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function addMatrices() {
+      const a11 = parseInt(document.getElementById("a11").value);
+      const a12 = parseInt(document.getElementById("a12").value);
+      const a21 = parseInt(document.getElementById("a21").value);
+      const a22 = parseInt(document.getElementById("a22").value);
+
+      const b11 = parseInt(document.getElementById("b11").value);
+      const b12 = parseInt(document.getElementById("b12").value);
+      const b21 = parseInt(document.getElementById("b21").value);
+      const b22 = parseInt(document.getElementById("b22").value);
+
+      const result = document.getElementById("result");
+      const sumMatrix = [[a11 + b11, a12 + b12], [a21 + b21, a22 + b22]];
+      result.textContent = `Result: [${sumMatrix[0]}], [${sumMatrix[1]}]`;
+    }
+
+    function subtractMatrices() {
+      const a11 = parseInt(document.getElementById("a11").value);
+      const a12 = parseInt(document.getElementById("a12").value);
+      const a21 = parseInt(document.getElementById("a21").value);
+      const a22 = parseInt(document.getElementById("a22").value);
+
+      const b11 = parseInt(document.getElementById("b11").value);
+      const b12 = parseInt(document.getElementById("b12").value);
+      const b21 = parseInt(document.getElementById("b21").value);
+      const b22 = parseInt(document.getElementById("b22").value);
+
+      const result = document.getElementById("result");
+      const diffMatrix = [[a11 - b11, a12 - b12], [a21 - b21, a22 - b22]];
+      result.textContent = `Result: [${diffMatrix[0]}], [${diffMatrix[1]}]`;
+    }
+
+    function multiplyMatrices() {
+      const a11 = parseInt(document.getElementById("a11").value);
+      const a12 = parseInt(document.getElementById("a12").value);
+      const a21 = parseInt(document.getElementById("a21").value);
+      const a22 = parseInt(document.getElementById("a22").value);
+
+      const b11 = parseInt(document.getElementById("b11").value);
+      const b12 = parseInt(document.getElementById("b12").value);
+      const b21 = parseInt(document.getElementById("b21").value);
+      const b22 = parseInt(document.getElementById("b22").value);
+
+      const result = document.getElementById("result");
+      const prodMatrix = [
+        [a11 * b11 + a12 * b21, a11 * b12 + a12 * b22],
+        [a21 * b11 + a22 * b21, a21 * b12 + a22 * b22],
+      ];
+      result.textContent = `Result: [${prodMatrix[0]}], [${prodMatrix[1]}]`;
+    }
+  </script>
+</body>
+</html>
+
+
+
+

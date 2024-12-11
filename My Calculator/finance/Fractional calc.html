@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fraction Calculator</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+    }
+    
+    .calculator {
+        display: inline-block;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    
+    input, select, button {
+        margin: 5px;
+        padding: 5px;
+        border-radius: 3px;
+    }
+    
+    button {
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body background="images/business-618371.jpg">
+    <div class="calculator">
+        <input type="text" id="fraction1" placeholder="Enter fraction 1 (e.g., 3/4)">
+        <select id="operator">
+            <option value="add">+</option>
+            <option value="subtract">-</option>
+            <option value="multiply">*</option>
+            <option value="divide">/</option>
+        </select>
+        <input type="text" id="fraction2" placeholder="Enter fraction 2 (e.g., 1/2)">
+        <button onclick="calculate()">Calculate</button>
+        <input type="text" id="result" placeholder="Result" readonly>
+    </div>
+
+    <script>function gcd(a, b) {
+        return b === 0 ? a : gcd(b, a % b);
+    }
+    
+    function calculate() {
+        const fraction1 = document.getElementById("fraction1").value;
+        const fraction2 = document.getElementById("fraction2").value;
+        const operator = document.getElementById("operator").value;
+        const resultInput = document.getElementById("result");
+    
+        if (!fraction1 || !fraction2) {
+            resultInput.value = "Please enter both fractions";
+            return;
+        }
+    
+        const [num1, den1] = fraction1.split("/");
+        const [num2, den2] = fraction2.split("/");
+        const numerator1 = parseInt(num1);
+        const denominator1 = parseInt(den1);
+        const numerator2 = parseInt(num2);
+        const denominator2 = parseInt(den2);
+    
+        if (isNaN(numerator1) || isNaN(denominator1) || isNaN(numerator2) || isNaN(denominator2)) {
+            resultInput.value = "Invalid fraction format";
+            return;
+        }
+    
+        let result;
+        switch (operator) {
+            case "add":
+                result = `${(numerator1 * denominator2 + numerator2 * denominator1)}/${denominator1 * denominator2}`;
+                break;
+            case "subtract":
+                result = `${(numerator1 * denominator2 - numerator2 * denominator1)}/${denominator1 * denominator2}`;
+                break;
+            case "multiply":
+                result = `${numerator1 * numerator2}/${denominator1 * denominator2}`;
+                break;
+            case "divide":
+                if (numerator2 === 0) {
+                    resultInput.value = "Cannot divide by zero";
+                    return;
+                }
+                result = `${numerator1 * denominator2}/${denominator1 * numerator2}`;
+                break;
+            default:
+                resultInput.value = "Invalid operator";
+                return;
+        }
+    
+        const greatestCommonDivisor = gcd(Math.abs(result.split("/")[0]), Math.abs(result.split("/")[1]));
+        result = `${parseInt(result.split("/")[0]) / greatestCommonDivisor}/${parseInt(result.split("/")[1]) / greatestCommonDivisor}`;
+    
+        resultInput.value = result;
+    }
+    </script>
+</body>
+</html>

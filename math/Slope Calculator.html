@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slope Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="calculator">
+    <h1>Slope Calculator</h1>
+    <label for="x1">Point 1 (x1, y1):</label>
+    <input type="number" id="x1" placeholder="x1" required>
+    <input type="number" id="y1" placeholder="y1" required>
+
+    <label for="x2">Point 2 (x2, y2):</label>
+    <input type="number" id="x2" placeholder="x2" required>
+    <input type="number" id="y2" placeholder="y2" required>
+
+    <button onclick="calculateSlope()">Calculate Slope</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateSlope() {
+      const x1 = parseFloat(document.getElementById("x1").value);
+      const y1 = parseFloat(document.getElementById("y1").value);
+      const x2 = parseFloat(document.getElementById("x2").value);
+      const y2 = parseFloat(document.getElementById("y2").value);
+      const resultElement = document.getElementById("result");
+
+      if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+        resultElement.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      if (x1 === x2) {
+        resultElement.textContent = "The slope is undefined (vertical line).";
+      } else {
+        const slope = (y2 - y1) / (x2 - x1);
+        resultElement.textContent = `Slope: ${slope.toFixed(2)}`;
+      }
+    }
+  </script>
+</body>
+</html>

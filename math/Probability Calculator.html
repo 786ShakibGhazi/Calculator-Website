@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probability Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="calculator">
+    <h1>Probability Calculator</h1>
+    <label for="probabilityType">Select Probability Type:</label>
+    <select id="probabilityType" onchange="toggleInputs()">
+      <option value="binomial">Binomial Distribution</option>
+      <option value="normal">Normal Distribution</option>
+    </select>
+
+    <div id="binomialInputs">
+      <label for="n">Number of Trials (n):</label>
+      <input type="number" id="n" required>
+
+      <label for="p">Probability of Success (p):</label>
+      <input type="number" id="p" step="0.01" min="0" max="1" required>
+    </div>
+
+    <div id="normalInputs" style="display:none;">
+      <label for="mean">Mean (μ):</label>
+      <input type="number" id="mean" required>
+
+      <label for="stdDev">Standard Deviation (σ):</label>
+      <input type="number" id="stdDev" required>
+    </div>
+
+    <label for="value">Value to Calculate Probability:</label>
+    <input type="number" id="value" required>
+
+    <button onclick="calculateProbability()">Calculate Probability</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function toggleInputs() {
+      const probabilityType = document.getElementById("probabilityType").value;
+      const binomialInputs = document.getElementById("binomialInputs");
+      const normalInputs = document.getElementById("normalInputs");
+
+      if (probabilityType === "binomial") {
+        binomialInputs.style.display = "block";
+        normalInputs.style.display = "none";
+      } else if (probabilityType === "normal") {
+        binomialInputs.style.display = "none";
+        normalInputs.style.display = "block";
+      }
+    }
+
+    function calculateProbability() {
+      const probabilityType = document.getElementById("probabilityType").value;
+      const value = parseFloat(document.getElementById("value").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(value)) {
+        result.textContent = "Please enter a valid number.";
+        return;
+      }
+
+      if (probabilityType === "binomial") {
+        const n = parseInt(document.getElementById("n").value);
+        const p = parseFloat(document.getElementById("p").value);
+
+        if (isNaN(n) || isNaN(p)) {
+          result.textContent = "Please enter valid numbers for Binomial Distribution.";
+          return;
+        }
+
+        const probability = binomialProbability(n, p, value);
+        result.textContent = `Probability: ${probability.toFixed(4)}`;
+      } else if (probabilityType === "normal") {
+        const mean = parseFloat(document.getElementById("mean").value);
+        const stdDev = parseFloat(document.getElementById("stdDev").value);
+
+        if (isNaN(mean) || isNaN(stdDev)) {
+          result.textContent = "Please enter valid numbers for Normal Distribution.";
+          return;
+        }
+
+        const probability = normalProbability(mean, stdDev, value);
+        result.textContent = `Probability: ${probability.toFixed(4)}`;
+      }
+    }
+
+    function binomialProbability(n, p, value) {
+      const q = 1 - p;
+      const comb = factorial(n) / (factorial(value) * factorial(n - value));
+      return comb * (p ** value) * (q ** (n - value));
+    }
+
+    function normalProbability(mean, stdDev, value) {
+      const z = (value - mean) / stdDev;
+      return standardNormalProbability(z);
+    }
+
+    function standardNormalProbability(z) {
+      return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * z ** 2);
+    }
+
+    function factorial(num) {
+      if (num === 0 || num === 1) {
+        return 1;
+      } else {
+        return num * factorial(num - 1);
+      }
+    }
+  </script>
+</body>
+</html>

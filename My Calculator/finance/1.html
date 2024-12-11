@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cash Back or Low Interest Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Cash Back or Low Interest Calculator</h1>
+    <form id="cashBackForm">
+      <div>
+        <label for="purchaseAmount">Purchase Amount ($):</label>
+        <input type="number" id="purchaseAmount" placeholder="Enter purchase amount" required>
+      </div>
+      <div>
+        <label for="cashBackRate">Cash Back Rate (%):</label>
+        <input type="number" id="cashBackRate" placeholder="Enter cash back rate" required>
+      </div>
+      <div>
+        <label for="interestRate">Interest Rate (%):</label>
+        <input type="number" id="interestRate" placeholder="Enter interest rate" required>
+      </div>
+      <div>
+        <label for="paymentTerm">Payment Term (months):</label>
+        <input type="number" id="paymentTerm" placeholder="Enter payment term" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("cashBackForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var purchaseAmount = parseFloat(document.getElementById("purchaseAmount").value);
+    var cashBackRate = parseFloat(document.getElementById("cashBackRate").value);
+    var interestRate = parseFloat(document.getElementById("interestRate").value);
+    var paymentTerm = parseInt(document.getElementById("paymentTerm").value);
+  
+    var cashBack = (purchaseAmount * cashBackRate) / 100;
+    var totalInterest = (purchaseAmount * interestRate * paymentTerm) / 100;
+  
+    var result;
+  
+    if (cashBack > totalInterest) {
+      result = "You should choose the Cash Back option.";
+    } else {
+      result = "You should choose the Low Interest option.";
+    }
+  
+    document.getElementById("result").innerHTML = result;
+  });
+  </script>
+</body>
+</html>

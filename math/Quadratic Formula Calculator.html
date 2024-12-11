@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quadratic Formula Calculator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: blue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+  </style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="container">
+    <h1>Quadratic Formula Calculator</h1>
+    <label for="a">Coefficient a:</label>
+    <input type="number" id="a">
+    <label for="b">Coefficient b:</label>
+    <input type="number" id="b">
+    <label for="c">Coefficient c:</label>
+    <input type="number" id="c">
+    <button onclick="calculateRoots()">Calculate Roots</button>
+    <div id="result"></div>
+  </div>
+  <script>
+    function calculateRoots() {
+  const a = parseFloat(document.getElementById("a").value);
+  const b = parseFloat(document.getElementById("b").value);
+  const c = parseFloat(document.getElementById("c").value);
+
+  if (isNaN(a) || isNaN(b) || isNaN(c)) {
+    document.getElementById("result").innerText = "Please enter valid coefficients for a, b, and c.";
+    return;
+  }
+
+  const discriminant = b * b - 4 * a * c;
+
+  if (discriminant > 0) {
+    const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+    const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+    document.getElementById("result").innerText = `Roots: ${root1.toFixed(2)} and ${root2.toFixed(2)}`;
+  } else if (discriminant === 0) {
+    const root = -b / (2 * a);
+    document.getElementById("result").innerText = `Root: ${root.toFixed(2)}`;
+  } else {
+    document.getElementById("result").innerText = "No real roots for the given coefficients.";
+  }
+}
+
+  </script>
+</body>
+</html>

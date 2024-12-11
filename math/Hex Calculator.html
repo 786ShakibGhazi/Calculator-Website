@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hex Calculator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: blue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+  </style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="container">
+    <h1>Hex Calculator</h1>
+    <label for="number1">Number 1 (Hexadecimal):</label>
+    <input type="text" id="number1">
+    <label for="number2">Number 2 (Hexadecimal):</label>
+    <input type="text" id="number2">
+    <label for="operator">Operator:</label>
+    <select id="operator">
+      <option value="add">+</option>
+      <option value="subtract">-</option>
+      <option value="multiply">*</option>
+      <option value="divide">/</option>
+    </select>
+    <button onclick="calculateHex()">Calculate</button>
+    <div id="result"></div>
+  </div>
+  <script>
+    function calculateHex() {
+  const number1 = document.getElementById("number1").value;
+  const number2 = document.getElementById("number2").value;
+  const operator = document.getElementById("operator").value;
+
+  if (!isValidHexadecimal(number1) || !isValidHexadecimal(number2)) {
+    document.getElementById("result").innerText = "Please enter valid hexadecimal numbers.";
+    return;
+  }
+
+  let result;
+  const decimal1 = parseInt(number1, 16);
+  const decimal2 = parseInt(number2, 16);
+
+  if (operator === "add") {
+    result = (decimal1 + decimal2).toString(16);
+  } else if (operator === "subtract") {
+    result = (decimal1 - decimal2).toString(16);
+  } else if (operator === "multiply") {
+    result = (decimal1 * decimal2).toString(16);
+  } else if (operator === "divide") {
+    if (decimal2 === 0) {
+      result = "Infinity";
+    } else {
+      result = Math.floor(decimal1 / decimal2).toString(16);
+    }
+  }
+
+  document.getElementById("result").innerText = `Result: ${result.toUpperCase()}`;
+}
+
+function isValidHexadecimal(hex) {
+  return /^[0-9A-Fa-f]+$/.test(hex);
+}
+
+  </script>
+</body>
+</html>

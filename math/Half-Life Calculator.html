@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Half-Life Calculator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color:blue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+  </style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+  <div class="container">
+    <h1>Half-Life Calculator</h1>
+    <label for="initial-quantity">Initial Quantity:</label>
+    <input type="number" id="initial-quantity">
+    <label for="half-life">Half-Life (in time units):</label>
+    <input type="number" id="half-life">
+    <label for="time-passed">Time Passed (in time units):</label>
+    <input type="number" id="time-passed">
+    <button onclick="calculateRemainingQuantity()">Calculate</button>
+    <div id="result"></div>
+  </div>
+  <script >
+    function calculateRemainingQuantity() {
+  const initialQuantity = parseFloat(document.getElementById("initial-quantity").value);
+  const halfLife = parseFloat(document.getElementById("half-life").value);
+  const timePassed = parseFloat(document.getElementById("time-passed").value);
+
+  if (isNaN(initialQuantity) || isNaN(halfLife) || isNaN(timePassed) || initialQuantity <= 0 || halfLife <= 0 || timePassed < 0) {
+    document.getElementById("result").innerText = "Please enter valid values for initial quantity, half-life, and time passed.";
+    return;
+  }
+
+  const remainingQuantity = initialQuantity * Math.pow(0.5, timePassed / halfLife);
+
+  document.getElementById("result").innerText = `Remaining Quantity: ${remainingQuantity.toFixed(2)}`;
+}
+
+  </script>
+</body>
+</html>

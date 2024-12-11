@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Investment Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Investment Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="initialAmount">Initial Investment ($):</label>
+        <input type="number" id="initialAmount" required>
+      </div>
+      <div>
+        <label for="monthlyContribution">Monthly Contribution ($):</label>
+        <input type="number" id="monthlyContribution" required>
+      </div>
+      <div>
+        <label for="annualReturn">Annual Return (%):</label>
+        <input type="number" id="annualReturn" required>
+      </div>
+      <div>
+        <label for="investmentPeriod">Investment Period (Years):</label>
+        <input type="number" id="investmentPeriod" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var initialAmount = parseFloat(document.getElementById("initialAmount").value);
+    var monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
+    var annualReturn = parseFloat(document.getElementById("annualReturn").value) / 100;
+    var investmentPeriod = parseInt(document.getElementById("investmentPeriod").value);
+  
+    var totalInvestment = initialAmount + (monthlyContribution * 12 * investmentPeriod);
+    var futureValue = calculateFutureValue(initialAmount, monthlyContribution, annualReturn, investmentPeriod);
+  
+    var result = "Total Investment: $" + totalInvestment.toFixed(2) + "<br>";
+    result += "Future Value: $" + futureValue.toFixed(2);
+    document.getElementById("result").innerHTML = result;
+  });
+  
+  function calculateFutureValue(initialAmount, monthlyContribution, annualReturn, investmentPeriod) {
+    var monthlyReturn = Math.pow(1 + annualReturn, 1 / 12) - 1;
+    var totalMonths = investmentPeriod * 12;
+  
+    var futureValue = initialAmount;
+    for (var i = 0; i < totalMonths; i++) {
+      futureValue = (futureValue + monthlyContribution) * (1 + monthlyReturn);
+    }
+  
+    return futureValue;
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Triangle Calculator</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+    }
+    
+    .calculator {
+        display: inline-block;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    
+    h2 {
+        margin-bottom: 10px;
+    }
+    
+    label, input, button {
+        display: block;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 3px;
+    }
+    
+    button {
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body background="images/geometry-1044090_1280.jpg">
+    <div class="calculator">
+        <h2>Triangle Calculator</h2>
+        <label for="sideA">Side A:</label>
+        <input type="number" id="sideA" placeholder="Enter length of side A">
+        <label for="sideB">Side B:</label>
+        <input type="number" id="sideB" placeholder="Enter length of side B">
+        <label for="sideC">Side C:</label>
+        <input type="number" id="sideC" placeholder="Enter length of side C">
+        <button onclick="calculate()">Calculate</button>
+        <label for="area">Area:</label>
+        <input type="text" id="area" placeholder="Area" readonly>
+        <label for="perimeter">Perimeter:</label>
+        <input type="text" id="perimeter" placeholder="Perimeter" readonly>
+    </div>
+
+    <script>function calculate() {
+        const sideA = parseFloat(document.getElementById("sideA").value);
+        const sideB = parseFloat(document.getElementById("sideB").value);
+        const sideC = parseFloat(document.getElementById("sideC").value);
+        const areaInput = document.getElementById("area");
+        const perimeterInput = document.getElementById("perimeter");
+    
+        if (isNaN(sideA) || isNaN(sideB) || isNaN(sideC)) {
+            areaInput.value = "Please enter valid side lengths";
+            perimeterInput.value = "Please enter valid side lengths";
+            return;
+        }
+    
+        if (sideA <= 0 || sideB <= 0 || sideC <= 0) {
+            areaInput.value = "Side lengths must be greater than zero";
+            perimeterInput.value = "Side lengths must be greater than zero";
+            return;
+        }
+    
+        if (sideA + sideB <= sideC || sideA + sideC <= sideB || sideB + sideC <= sideA) {
+            areaInput.value = "Invalid side lengths (Triangle Inequality)";
+            perimeterInput.value = "Invalid side lengths (Triangle Inequality)";
+            return;
+        }
+    
+        const semiPerimeter = (sideA + sideB + sideC) / 2;
+        const area = Math.sqrt(semiPerimeter * (semiPerimeter - sideA) * (semiPerimeter - sideB) * (semiPerimeter - sideC));
+        const perimeter = sideA + sideB + sideC;
+    
+        areaInput.value = area.toFixed(2); // Display area with two decimal places
+        perimeterInput.value = perimeter.toFixed(2); // Display perimeter with two decimal places
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interest Rate Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style>
+  </head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Interest Rate Calculator</h1>
+    <form id="interestForm">
+      <div>
+        <label for="principal">Principal Amount:</label>
+        <input type="number" id="principal" required>
+      </div>
+      <div>
+        <label for="interestRate">Interest Rate (%):</label>
+        <input type="number" id="interestRate" step="0.01" required>
+      </div>
+      <div>
+        <label for="timePeriod">Time Period (years):</label>
+        <input type="number" id="timePeriod" required>
+      </div>
+      <div>
+        <label for="interestType">Interest Type:</label>
+        <select id="interestType" required>
+          <option value="apr">APR</option>
+          <option value="simple">Simple Interest</option>
+          <option value="compound">Compound Interest</option>
+        </select>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("interestForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var principal = parseFloat(document.getElementById("principal").value);
+    var interestRate = parseFloat(document.getElementById("interestRate").value);
+    var timePeriod = parseFloat(document.getElementById("timePeriod").value);
+    var interestType = document.getElementById("interestType").value;
+  
+    var interest = 0;
+  
+    switch (interestType) {
+      case "apr":
+        interest = principal * (interestRate / 100);
+        break;
+      case "simple":
+        interest = (principal * interestRate * timePeriod) / 100;
+        break;
+      case "compound":
+        var compoundRate = 1 + interestRate / 100;
+        interest = principal * Math.pow(compoundRate, timePeriod) - principal;
+        break;
+      default:
+        document.getElementById("result").innerHTML = "Please select an interest type.";
+        return;
+    }
+  
+    document.getElementById("result").innerHTML = `Interest: $${interest.toFixed(2)}`;
+  });
+  </script>
+</body>
+</html>

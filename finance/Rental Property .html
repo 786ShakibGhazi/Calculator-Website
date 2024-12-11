@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rental Property Calculator</title>
+<style>.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #result {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  </style></head>
+<body background="images/business-618371.jpg">
+  <div class="container">
+    <h1>Rental Property Calculator</h1>
+    <form id="calcForm">
+      <div>
+        <label for="propertyValue">Property Value ($):</label>
+        <input type="number" id="propertyValue" required>
+      </div>
+      <div>
+        <label for="monthlyRent">Monthly Rent ($):</label>
+        <input type="number" id="monthlyRent" required>
+      </div>
+      <div>
+        <label for="vacancyRate">Vacancy Rate (%):</label>
+        <input type="number" id="vacancyRate" required>
+      </div>
+      <div>
+        <label for="operatingExpenses">Operating Expenses ($):</label>
+        <input type="number" id="operatingExpenses" required>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>document.getElementById("calcForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+  
+    var propertyValue = parseFloat(document.getElementById("propertyValue").value);
+    var monthlyRent = parseFloat(document.getElementById("monthlyRent").value);
+    var vacancyRate = parseFloat(document.getElementById("vacancyRate").value);
+    var operatingExpenses = parseFloat(document.getElementById("operatingExpenses").value);
+  
+    var netOperatingIncome = calculateNetOperatingIncome(monthlyRent, vacancyRate, operatingExpenses);
+    var capitalizationRate = calculateCapitalizationRate(netOperatingIncome, propertyValue);
+    var propertyValueAfterAppreciation = calculatePropertyValueAfterAppreciation(propertyValue);
+    
+    document.getElementById("result").innerHTML = `Net Operating Income: $${netOperatingIncome.toFixed(2)}<br>
+      Capitalization Rate: ${capitalizationRate.toFixed(2)}%<br>
+      Property Value after Appreciation: $${propertyValueAfterAppreciation.toFixed(2)}`;
+  });
+  
+  function calculateNetOperatingIncome(monthlyRent, vacancyRate, operatingExpenses) {
+    var annualRent = monthlyRent * 12;
+    var vacancyAmount = annualRent * (vacancyRate / 100);
+    var netOperatingIncome = annualRent - vacancyAmount - operatingExpenses;
+    return netOperatingIncome;
+  }
+  
+  function calculateCapitalizationRate(netOperatingIncome, propertyValue) {
+    var capitalizationRate = (netOperatingIncome / propertyValue) * 100;
+    return capitalizationRate;
+  }
+  
+  function calculatePropertyValueAfterAppreciation(propertyValue) {
+    var appreciationRate = 0.05; // Assuming 5% appreciation rate
+    var propertyValueAfterAppreciation = propertyValue * (1 + appreciationRate);
+    return propertyValueAfterAppreciation;
+  }
+  </script>
+</body>
+</html>
